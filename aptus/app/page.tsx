@@ -887,34 +887,36 @@ export default function Home() {
         </div>
 
         {profile && (
-          <div className="block">
-            <div className="block-label">
+          <div className="block profile-card">
+            <div className="block-label profile-card-label">
               ◈ Developer
             </div>
 
             <div className="profile-row">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className="avatar"
-                src={profile.avatarUrl}
-                alt={profile.login}
-              />
+              <div className="profile-identity">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="avatar"
+                  src={profile.avatarUrl}
+                  alt={profile.login}
+                />
 
-              <div className="profile-info">
-                <div className="profile-name">
-                  {profile.name ||
-                    profile.login}
+                <div className="profile-info">
+                  <div className="profile-name">
+                    {profile.name ||
+                      profile.login}
+                  </div>
+
+                  <div className="profile-login">
+                    @{profile.login}
+                  </div>
+
+                  {profile.bio && (
+                    <p className="profile-bio">
+                      {profile.bio}
+                    </p>
+                  )}
                 </div>
-
-                <div className="profile-login">
-                  @{profile.login}
-                </div>
-
-                {profile.bio && (
-                  <p className="profile-bio">
-                    {profile.bio}
-                  </p>
-                )}
               </div>
 
               <div className="profile-stats">
@@ -933,7 +935,7 @@ export default function Home() {
                 </div>
               </div>
 
-            <a
+              <a
                 className="profile-link"
                 href={profile.htmlUrl}
                 target="_blank"
