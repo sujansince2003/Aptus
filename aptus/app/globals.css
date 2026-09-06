@@ -1123,9 +1123,11 @@ body {
 .recent-chip-delete{
   display:flex; align-items:center; justify-content:center;
   width:20px; height:20px; margin-right:4px;
+  padding:0; flex:0 0 20px;
   border-radius:50%; border:none; background:transparent;
-  color:var(--dim); font-size:14px; line-height:1; cursor:pointer;
+  color:var(--dim); cursor:pointer;
 }
+.recent-chip-delete svg{display:block;}
 .recent-chip-delete:hover{background:var(--bad); color:#fff;}
 .star-btn:focus,
 .icon-btn:focus,

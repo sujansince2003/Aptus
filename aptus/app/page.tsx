@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { XIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useRef, Fragment, useMemo, useEffect } from 'react';
 
@@ -845,11 +846,12 @@ export default function Home() {
                     </button>
 
                     <button
+                      type="button"
                       className="recent-chip-delete"
                       onClick={(e) => deleteRecentScan(r.id, e)}
                       aria-label={`Remove ${r.targetUsername} from recently analyzed`}
                     >
-                      ×
+                      <XIcon size={12} strokeWidth={2.5} aria-hidden="true" />
                     </button>
                   </div>
                 ))}
