@@ -3,6 +3,13 @@ import { useSession } from '@/lib/auth-client';
 import GithubIcon from '@/components/ui/github-icon';
 import RefreshIcon from '@/components/ui/refresh-icon';
 import HistoryCircleIcon from '@/components/ui/history-circle-icon';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import Link from 'next/link';
 import { useState, useRef, Fragment, useMemo, useEffect } from 'react';
 
@@ -75,6 +82,15 @@ const SEGMENT_COLORS = [
   'var(--mid)',
 ];
 
+const SORT_OPTIONS = [
+  { value: 'match', label: 'Best match' },
+  { value: 'easiest', label: 'Easiest first' },
+  { value: 'fastest', label: 'Fastest' },
+  { value: 'probability', label: 'Highest probability' },
+] as const;
+
+type SortBy = (typeof SORT_OPTIONS)[number]['value'];
+
 export default function Home() {
   const { data: session } = useSession();
 
@@ -96,9 +112,7 @@ export default function Home() {
 
 
 
-  const [sortBy, setSortBy] = useState<
-    'match' | 'easiest' | 'fastest' | 'probability'
-  >('match');
+  const [sortBy, setSortBy] = useState<SortBy>('match');
 
 
   const [activeLangs, setActiveLangs] = useState<Set<string>>(
@@ -1062,32 +1076,42 @@ export default function Home() {
                   )
                 )}
 
-                <select
-                  className="select"
+                <Select
+                  items={SORT_OPTIONS}
                   value={sortBy}
-                  onChange={(e) =>
-                    setSortBy(
-                      e.target
-                        .value as typeof sortBy
-                    )
-                  }
+                  onValueChange={(value) => {
+                    if (value) setSortBy(value);
+                  }}
                 >
-                  <option value="match">
-                    Best match
-                  </option>
-
-                  <option value="easiest">
-                    Easiest first
-                  </option>
-
-                  <option value="fastest">
-                    Fastest
-                  </option>
-
-                  <option value="probability">
-                    Highest probability
-                  </option>
-                </select>
+                  <SelectTrigger
+                    className="select min-w-44"
+                    aria-label="Sort results"
+                  >
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent
+                    side="bottom"
+                    sideOffset={8}
+                    align="start"
+                    alignItemWithTrigger={false}
+                    collisionAvoidance={{
+                      side: 'none',
+                      align: 'shift',
+                      fallbackAxisSide: 'none',
+                    }}
+                    className="w-max min-w-(--anchor-width) p-1 font-[var(--mono)]"
+                  >
+                    {SORT_OPTIONS.map((option) => (
+                      <SelectItem
+                        key={option.value}
+                        value={option.value}
+                        className="py-2 text-[11.5px] font-semibold"
+                      >
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
