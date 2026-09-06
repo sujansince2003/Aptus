@@ -3,6 +3,7 @@ import { useSession } from '@/lib/auth-client';
 import GithubIcon from '@/components/ui/github-icon';
 import RefreshIcon from '@/components/ui/refresh-icon';
 import HistoryCircleIcon from '@/components/ui/history-circle-icon';
+import type { AnimatedIconHandle } from '@/components/ui/types';
 import {
   Select,
   SelectContent,
@@ -198,6 +199,7 @@ export default function Home() {
     }
   }
   const [refreshing, setRefreshing] = useState(false);
+  const refreshIconRef = useRef<AnimatedIconHandle>(null);
 
   useEffect(() => {
     fetch('https://api.github.com/repos/Quadratic12345/Aptus')
@@ -1047,11 +1049,17 @@ export default function Home() {
 
               <div className="toolbar-controls">
                 <button
-                  className="chip"
+                  className="chip refresh-chip"
                   onClick={refreshResults}
+                  onMouseEnter={() =>
+                    refreshIconRef.current?.startAnimation()
+                  }
+                  onMouseLeave={() =>
+                    refreshIconRef.current?.stopAnimation()
+                  }
                   disabled={refreshing}
                 >
-                  <RefreshIcon />
+                  <RefreshIcon ref={refreshIconRef} size={14} />
                   {refreshing ? 'Refreshing...' : 'Refresh'}
                 </button>
 

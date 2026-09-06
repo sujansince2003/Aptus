@@ -586,6 +586,19 @@ h1{
   color:var(--accent-ink);
 }
 
+.refresh-chip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  line-height:1;
+  white-space:nowrap;
+}
+
+.refresh-chip svg{
+  flex:none;
+}
+
 /* results grid */
 .results-grid{
   display:grid;
