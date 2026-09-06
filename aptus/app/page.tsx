@@ -1061,7 +1061,11 @@ export default function Home() {
                   }
                   disabled={refreshing}
                 >
-                  <RefreshIcon ref={refreshIconRef} size={14} />
+                  <RefreshIcon
+                    ref={refreshIconRef}
+                    size={14}
+                    className="pointer-events-none"
+                  />
                   {refreshing ? 'Refreshing...' : 'Refresh'}
                 </button>
 
